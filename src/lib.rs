@@ -11,18 +11,42 @@ pub struct Car {
 impl Car {
     fn sample() -> Vec<Car> {
         vec![
-            Car { name: String::from("Model 3"), brand: String::from("Tesla"),   cost: 60000, is_electric: true,  },
-            Car { name: String::from("350z"),    brand: String::from("Nissan"),  cost: 20000, is_electric: false, },
-            Car { name: String::from("86"),      brand: String::from("Toyota"),  cost: 45000, is_electric: false, },
-            Car { name: String::from("i30"),     brand: String::from("Hyundai"), cost: 10000, is_electric: false, },
-            Car { name: String::from("Model 3"), brand: String::from("Tesla"),   cost: 30000, is_electric: true,  },
+            Car {
+                name: String::from("Model 3"),
+                brand: String::from("Tesla"),
+                cost: 60000,
+                is_electric: true,
+            },
+            Car {
+                name: String::from("350z"),
+                brand: String::from("Nissan"),
+                cost: 20000,
+                is_electric: false,
+            },
+            Car {
+                name: String::from("86"),
+                brand: String::from("Toyota"),
+                cost: 45000,
+                is_electric: false,
+            },
+            Car {
+                name: String::from("i30"),
+                brand: String::from("Hyundai"),
+                cost: 10000,
+                is_electric: false,
+            },
+            Car {
+                name: String::from("Model 3"),
+                brand: String::from("Tesla"),
+                cost: 30000,
+                is_electric: true,
+            },
         ]
     }
 }
 
-
 /// ## 1. return an array of only electric cars.
-/// 
+///
 /// Typescript version
 /// ```typescript
 /// function only_electric(cars: Car[]): Car[] {
@@ -34,7 +58,7 @@ pub fn only_electric(cars: &[Car]) -> Vec<&Car> {
 }
 
 /// ## 2. return the cost of all cars together.
-/// 
+///
 /// Typescript version
 /// ```typescript
 /// function total_cost(cars: Car[]): number {
@@ -46,7 +70,7 @@ pub fn total_cost(cars: &[Car]) -> u32 {
 }
 
 /// ## 3. return unique car brands.
-/// 
+///
 /// Typescript version
 /// ```typescript
 /// function unique_brands(cars: Car[]): string[] {
@@ -62,7 +86,7 @@ pub fn total_cost(cars: &[Car]) -> u32 {
 ///     return brands;
 /// }
 /// ```
-/// 
+///
 /// Typescript version 2
 /// ```typescript
 /// function uniqueBrands(cars: Car[]): string[] {
@@ -72,9 +96,8 @@ pub fn total_cost(cars: &[Car]) -> u32 {
 ///
 ///     return brands;
 /// }
-pub fn unique_brands (cars: &[Car]) -> Vec<&str> {
-    cars
-        .iter()
+pub fn unique_brands(cars: &[Car]) -> Vec<&str> {
+    cars.iter()
         .map(|car| car.brand.as_str())
         .fold(vec![], |mut acc, brand| {
             if !acc.contains(&brand) {
@@ -84,20 +107,17 @@ pub fn unique_brands (cars: &[Car]) -> Vec<&str> {
         })
 }
 
-pub fn unique_brands2 (cars: &[Car]) -> Vec<&str> {
-    cars
-        .iter()
+pub fn unique_brands2(cars: &[Car]) -> Vec<&str> {
+    cars.iter()
         .map(|car| car.brand.as_str())
         .enumerate()
-        .filter(|(i, brand)| {
-            cars.iter().position(|car| car.brand == *brand) == Some(*i)
-        })
+        .filter(|(i, brand)| cars.iter().position(|car| car.brand == *brand) == Some(*i))
         .map(|(i, brand)| brand)
         .collect()
 }
 
 /// If order doesn't matter
-pub fn unique_brands3 (cars: &[Car]) -> Vec<&str> {
+pub fn unique_brands3(cars: &[Car]) -> Vec<&str> {
     let mut brands: Vec<&str> = cars.iter().map(|car| car.brand.as_str()).collect();
     brands.sort();
     brands.dedup();
@@ -105,57 +125,57 @@ pub fn unique_brands3 (cars: &[Car]) -> Vec<&str> {
 }
 
 /// ## 4. are all cars electric?
-/// 
+///
 /// Typescript version
 /// ```typescript
 /// function allElectric(cars: Car[]): boolean {
 ///     return cars.every(car => car.isElectric);
 /// }
 /// ```
-pub fn all_electric (cars: &[Car]) -> bool {
+pub fn all_electric(cars: &[Car]) -> bool {
     cars.iter().all(|car| car.is_electric)
 }
 
-
 /// ## 5. is any car electric?
-/// 
+///
 /// Typescript version
 /// ```typescript
 /// function cxuIuElektra(cars: Car[]): boolean {
 ///     return cars.some(car => car.isElectric);
 /// }
 /// ```
-pub fn any_electric (cars: &[Car]) -> bool {
+pub fn any_electric(cars: &[Car]) -> bool {
     cars.iter().any(|car| car.is_electric)
 }
 
 /// ## 6. find the last non-electric car of the array
-/// 
+///
 /// Typescript version
 /// ```typescript
 /// function last_non_electric(cars: Car[]): Car | undefined {
 ///     return cars.reverse().find(car => !car.isElectric);
 /// }
 /// ```
-pub fn last_non_electric (cars: &[Car]) -> Option<&Car> {
+pub fn last_non_electric(cars: &[Car]) -> Option<&Car> {
     cars.iter().rfind(|car| !car.is_electric)
 }
 
 /// ## 7. find the most expensive car in the array
-/// 
+///
 /// Typescript version
 /// ```typescript
 /// function plejMultekosta(cars: Car[]): Car {
 ///     return cars.sort((a, b) => b.cost - a.cost)[0];
 /// }
 /// ```
-pub fn most_expensive (cars: &[Car]) -> Option<&Car> {
+pub fn most_expensive(cars: &[Car]) -> Option<&Car> {
     cars.iter().reduce(|most_expensive, car| {
-        if car.cost > most_expensive.cost { return car }
+        if car.cost > most_expensive.cost {
+            return car;
+        }
         most_expensive
     })
 }
-
 
 #[cfg(test)]
 mod tests {
