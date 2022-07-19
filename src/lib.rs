@@ -96,6 +96,7 @@ pub fn unique_brands2<'a> (cars: &'a [Car]) -> Vec<&'a str> {
         .collect()
 }
 
+/// If order doesn't matter
 pub fn unique_brands3<'a> (cars: &'a [Car]) -> Vec<&'a str> {
     let mut brands: Vec<&str> = cars.iter().map(|car| car.brand).collect();
     brands.sort();
