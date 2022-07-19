@@ -161,18 +161,10 @@ pub fn most_expensive (cars: &[Car]) -> Option<&Car> {
 mod tests {
     use super::*;
 
-    fn sample_answer(cars: &Vec<Car>, indices: Vec<usize>) -> Vec<&Car> {
-        let mut answer = vec![];
-        for i in indices {
-            answer.push(&cars[i]);
-        }
-        answer
-    }
-
     #[test]
     fn test_only_electric() {
         let cars = Car::sample();
-        let answer = sample_answer(&cars, vec![0, 4]);
+        let answer = vec![&cars[0], &cars[4]];
 
         assert_eq!(only_electric(&cars), answer);
     }
