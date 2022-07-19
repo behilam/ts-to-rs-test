@@ -1,5 +1,5 @@
 [package]
-name = "typescript_to_rust_test"
+name = "ts-to-rs-test"
 version = "0.1.0"
 edition = "2021"
 
