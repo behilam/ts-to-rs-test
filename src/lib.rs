@@ -136,12 +136,11 @@ pub fn any_electric<'a> (cars: &'a [Car]) -> bool {
 ///     return cars.reverse().find(car => !car.isElectric);
 /// }
 /// ```
-/// const lastaAuto = cars.reverse().find((car) => !car.isElectric);
 pub fn last_non_electric<'a> (cars: &'a [Car]) -> Option<&'a Car<'a>> {
     cars.iter().rfind(|car| !car.is_electric)
 }
 
-/// 7. find the most expensive car in the array
+/// ## 7. find the most expensive car in the array
 /// 
 /// Typescript version
 /// ```typescript
