@@ -8,8 +8,8 @@ pub struct Car<'a> {
     cost: u32,
 }
 
-impl Car<'_> {
-    fn sample() -> Vec<Car<'static>> {
+impl<'a> Car<'a> {
+    fn sample() -> Vec<Car<'a>> {
         vec![
             Car { name: "Model 3", brand: "Tesla",   cost: 60000, is_electric: true,  },
             Car { name: "350z",    brand: "Nissan",  cost: 20000, is_electric: false, },
