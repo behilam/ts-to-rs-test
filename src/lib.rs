@@ -1,21 +1,21 @@
 #![allow(unused)]
 
 #[derive(Debug, PartialEq)]
-pub struct Car<'a> {
-    name: &'a str,
-    brand: &'a str,
+pub struct Car {
+    name: String,
+    brand: String,
     is_electric: bool,
     cost: u32,
 }
 
-impl<'a> Car<'a> {
-    fn sample() -> Vec<Car<'a>> {
+impl Car {
+    fn sample() -> Vec<Car> {
         vec![
-            Car { name: "Model 3", brand: "Tesla",   cost: 60000, is_electric: true,  },
-            Car { name: "350z",    brand: "Nissan",  cost: 20000, is_electric: false, },
-            Car { name: "86",      brand: "Toyota",  cost: 45000, is_electric: false, },
-            Car { name: "i30",     brand: "Hyundai", cost: 10000, is_electric: false, },
-            Car { name: "Model 3", brand: "Tesla",   cost: 30000, is_electric: true,  },
+            Car { name: String::from("Model 3"), brand: String::from("Tesla"),   cost: 60000, is_electric: true,  },
+            Car { name: String::from("350z"),    brand: String::from("Nissan"),  cost: 20000, is_electric: false, },
+            Car { name: String::from("86"),      brand: String::from("Toyota"),  cost: 45000, is_electric: false, },
+            Car { name: String::from("i30"),     brand: String::from("Hyundai"), cost: 10000, is_electric: false, },
+            Car { name: String::from("Model 3"), brand: String::from("Tesla"),   cost: 30000, is_electric: true,  },
         ]
     }
 }
@@ -29,7 +29,7 @@ impl<'a> Car<'a> {
 ///     return cars.filter(car => car.isElectric);
 /// }
 /// ```
-pub fn only_electric<'a> (cars: &'a [Car]) -> Vec<&'a Car<'a>> {
+pub fn only_electric(cars: &[Car]) -> Vec<&Car> {
     cars.iter().filter(|car| car.is_electric).collect()
 }
 
@@ -72,10 +72,10 @@ pub fn total_cost(cars: &[Car]) -> u32 {
 ///
 ///     return brands;
 /// }
-pub fn unique_brands<'a> (cars: &'a [Car]) -> Vec<&'a str> {
+pub fn unique_brands (cars: &[Car]) -> Vec<&str> {
     cars
         .iter()
-        .map(|car| car.brand)
+        .map(|car| car.brand.as_str())
         .fold(vec![], |mut acc, brand| {
             if !acc.contains(&brand) {
                 acc.push(brand);
@@ -84,10 +84,10 @@ pub fn unique_brands<'a> (cars: &'a [Car]) -> Vec<&'a str> {
         })
 }
 
-pub fn unique_brands2<'a> (cars: &'a [Car]) -> Vec<&'a str> {
+pub fn unique_brands2 (cars: &[Car]) -> Vec<&str> {
     cars
         .iter()
-        .map(|car| car.brand)
+        .map(|car| car.brand.as_str())
         .enumerate()
         .filter(|(i, brand)| {
             cars.iter().position(|car| car.brand == *brand) == Some(*i)
@@ -97,8 +97,8 @@ pub fn unique_brands2<'a> (cars: &'a [Car]) -> Vec<&'a str> {
 }
 
 /// If order doesn't matter
-pub fn unique_brands3<'a> (cars: &'a [Car]) -> Vec<&'a str> {
-    let mut brands: Vec<&str> = cars.iter().map(|car| car.brand).collect();
+pub fn unique_brands3 (cars: &[Car]) -> Vec<&str> {
+    let mut brands: Vec<&str> = cars.iter().map(|car| car.brand.as_str()).collect();
     brands.sort();
     brands.dedup();
     brands
@@ -112,7 +112,7 @@ pub fn unique_brands3<'a> (cars: &'a [Car]) -> Vec<&'a str> {
 ///     return cars.every(car => car.isElectric);
 /// }
 /// ```
-pub fn all_electric<'a> (cars: &'a [Car]) -> bool {
+pub fn all_electric (cars: &[Car]) -> bool {
     cars.iter().all(|car| car.is_electric)
 }
 
@@ -125,7 +125,7 @@ pub fn all_electric<'a> (cars: &'a [Car]) -> bool {
 ///     return cars.some(car => car.isElectric);
 /// }
 /// ```
-pub fn any_electric<'a> (cars: &'a [Car]) -> bool {
+pub fn any_electric (cars: &[Car]) -> bool {
     cars.iter().any(|car| car.is_electric)
 }
 
@@ -137,7 +137,7 @@ pub fn any_electric<'a> (cars: &'a [Car]) -> bool {
 ///     return cars.reverse().find(car => !car.isElectric);
 /// }
 /// ```
-pub fn last_non_electric<'a> (cars: &'a [Car]) -> Option<&'a Car<'a>> {
+pub fn last_non_electric (cars: &[Car]) -> Option<&Car> {
     cars.iter().rfind(|car| !car.is_electric)
 }
 
@@ -149,7 +149,7 @@ pub fn last_non_electric<'a> (cars: &'a [Car]) -> Option<&'a Car<'a>> {
 ///     return cars.sort((a, b) => b.cost - a.cost)[0];
 /// }
 /// ```
-pub fn most_expensive<'a> (cars: &'a [Car]) -> Option<&'a Car<'a>> {
+pub fn most_expensive (cars: &[Car]) -> Option<&Car> {
     cars.iter().reduce(|most_expensive, car| {
         if car.cost > most_expensive.cost { return car }
         most_expensive
@@ -161,7 +161,7 @@ pub fn most_expensive<'a> (cars: &'a [Car]) -> Option<&'a Car<'a>> {
 mod tests {
     use super::*;
 
-    fn sample_answer<'a> (cars: &'a Vec<Car>, indices: Vec<usize>) -> Vec<&'a Car<'a>> {
+    fn sample_answer(cars: &Vec<Car>, indices: Vec<usize>) -> Vec<&Car> {
         let mut answer = vec![];
         for i in indices {
             answer.push(&cars[i]);
